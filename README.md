@@ -3,11 +3,11 @@
 
 # Run
 ```
-python main2.py analyze folder_a folder_b
+python main.py analyze folder_a folder_b
 ```
 
   or 
 
 ```
-python3 main2.py analyze folder_a folder_b
+python3 main.py analyze folder_a folder_b
 ```
