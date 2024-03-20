@@ -112,12 +112,8 @@ def extract_unique_requests(folder_a, folder_b):
     unique_requests_b = requests_b - requests_a
 
     def generate_report(requests, log):
-        report = []
-        for request in requests:
-            for log_entry in log:
-                if log_entry[0] == request:
-                    report.append(log_entry)
-                    break
+        log_index = {entry[0]: entry for entry in log}
+        report = [log_index[request] for request in requests if request in log_index]
         return report
 
     report_a = generate_report(unique_requests_a, log_a)
@@ -127,7 +123,7 @@ def extract_unique_requests(folder_a, folder_b):
     folder_b_name = os.path.basename(folder_b)
 
     def save_report_to_csv(filename, report):
-        sorted_report = sorted(report, key=lambda x: x[0]) 
+        sorted_report = sorted(report, key=lambda x: x[0])
         with open(filename, 'w', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
             writer.writerow(["Requests", "Content", "Path", "Line"])
