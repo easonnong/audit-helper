@@ -3,4 +3,4 @@ http://a1_3.com/api/endpoint2,"'url': 'http://a1_3.com/api/endpoint2',",folder_a
 http://a2_3.com/api/endpoint2,"'url': 'http://a2_3.com/api/endpoint2',",folder_a/a2.ts,22
 https://a2_1.com/api/endpoint1,"'url': 'https://a2_1.com/api/endpoint1',",folder_a/a2.ts,10
 https://a2_2.com/api/endpoint2,"'url': 'https://a2_2.com/api/endpoint2',",folder_a/a2.ts,16
-https://baidu.com/api/endpoint,"'url': 'https://baidu.com/api/endpoint',",folder_a/a2.ts,28
+https://baidu.com/api/endpoint,"'url': 'https://baidu.com/api/endpoint',",folder_a/a1.js,28

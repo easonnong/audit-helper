@@ -2,6 +2,7 @@ import sys
 import os
 import re
 import csv
+from concurrent.futures import ThreadPoolExecutor
 
 # 文件类型
 valid_extensions = ['.js', '.ts', '.java', '.tsx']
@@ -89,21 +90,24 @@ def extract_unique_requests(folder_a, folder_b):
         _, extension = os.path.splitext(file_path)
         return extension.lower() in valid_extensions
 
+    def process_file(file_path, requests, log):
+        if has_valid_extension(file_path):
+            with open(file_path, 'r', encoding='utf-8') as f:
+                lines = f.readlines()
+                for line_num, line in enumerate(lines, start=1):
+                    matches = re.findall(pattern, line)
+                    if matches:
+                        for match in matches:
+                            url = extract_url(match.split()[0])
+                            if url not in requests and not has_image_extension(url):
+                                requests.add(url)
+                                log.append((url, line.strip(), file_path, line_num))
+
     def process_folder(folder, requests, log):
-        for root, dirs, files in os.walk(folder):
-            for file in files:
-                file_path = os.path.join(root, file)
-                if has_valid_extension(file_path):
-                    with open(file_path, 'r', encoding='utf-8') as f:
-                        lines = f.readlines()
-                        for line_num, line in enumerate(lines, start=1):
-                            matches = re.findall(pattern, line)
-                            if matches:
-                                for match in matches:
-                                    url = extract_url(match.split()[0])
-                                    if url not in requests and not has_image_extension(url):
-                                        requests.add(url)
-                                        log.append((url, line.strip(), file_path, line_num))
+        with ThreadPoolExecutor() as executor:
+            for root, dirs, files in os.walk(folder):
+                file_paths = [os.path.join(root, file) for file in files if has_valid_extension(file)]
+                executor.map(lambda file_path: process_file(file_path, requests, log), file_paths)
 
     process_folder(folder_a, requests_a, log_a)
     process_folder(folder_b, requests_b, log_b)
