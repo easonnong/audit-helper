@@ -7,8 +7,12 @@ def scan_sensitive_functions(folder, file, extension_exclude=None, report_file=N
     sensitive_functions = []
 
     # to get the sensitive functions
-    with open(file, 'r', errors='ignore') as f:
-        sensitive_functions = [line.strip() for line in f]
+    if not os.path.exists(file):
+        os.makedirs(os.path.dirname(file), exist_ok=True)
+        open(file, 'w').close() 
+    else:
+        with open(file, 'r', errors='ignore') as f:
+            sensitive_functions = [line.strip() for line in f]
     
     # to get the excluded extensions
     excluded_extensions = set()
