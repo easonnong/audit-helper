@@ -3,7 +3,7 @@ import re
 import csv
 
 
-def scan_sensitive_functions(folder, file, extension_exclude=None, target_file=None, report_file=None):
+def scan_sensitive_functions(folder, file, extension_exclude=None, report_file=None):
     sensitive_functions = []
 
     # to get the sensitive functions
@@ -28,10 +28,6 @@ def scan_sensitive_functions(folder, file, extension_exclude=None, target_file=N
 
             # combine the path
             filepath = os.path.join(root, filename)
-
-            # check if the target file is specified
-            if target_file and target_file != filepath:
-                continue
 
             # open file and read lines
             with open(filepath, 'r') as f:

@@ -1,0 +1,7 @@
+Function,Content,Path,Line
+send_http_request1,"def send_http_request1(url, method='GET', headers=None, data=None):",examples/folder_a/a2.ts,3
+send_http_request,"def send_http_request(url, method='GET', headers=None, data=None):",examples/folder_a/a5.py,3
+send_http_request,"def send_http_request(url, method='GET', headers=None, data=None):",examples/folder_a/a1.js,3
+send_http_request,"response = send_http_request(url, method, headers, data)",examples/folder_a/a5.py,48
+send_http_request,"response = send_http_request(url, method, headers, data)",examples/folder_a/a1.js,48
+send_http_request2,"response = send_http_request2(url, method, headers, data)",examples/folder_a/a2.ts,54
