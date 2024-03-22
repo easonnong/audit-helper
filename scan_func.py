@@ -7,7 +7,7 @@ def scan_sensitive_functions(folder, file, extension_exclude=None, report_file=N
     sensitive_functions = []
 
     # to get the sensitive functions
-    with open(file, 'r') as f:
+    with open(file, 'r', errors='ignore') as f:
         sensitive_functions = [line.strip() for line in f]
     
     # to get the excluded extensions
@@ -30,7 +30,7 @@ def scan_sensitive_functions(folder, file, extension_exclude=None, report_file=N
             filepath = os.path.join(root, filename)
 
             # open file and read lines
-            with open(filepath, 'r') as f:
+            with open(filepath, 'r', errors='ignore') as f:
                 lines = f.readlines()
                 for line_num, line in enumerate(lines, start=1):
                     # check if the line contains any sensitive function
@@ -89,7 +89,7 @@ def save_report_to_csv(filename, report):
     if not os.path.dirname(filename):
         filename = os.path.join(os.getcwd(), filename)
     os.makedirs(os.path.dirname(filename), exist_ok=True)
-    with open(filename, 'w', newline='', encoding='utf-8') as f:
+    with open(filename, 'w', newline='', encoding='utf-8', errors='ignore') as f:
         writer = csv.writer(f)
         writer.writerow(["Function", "Content", "Path", "Line"])
         for item in sorted_report:

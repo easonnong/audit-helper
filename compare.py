@@ -91,7 +91,7 @@ def extract_unique_requests(folder_a, folder_b, target_a, target_b):
 
     def process_file(file_path, requests, log):
         if has_valid_extension(file_path):
-            with open(file_path, 'r', encoding='utf-8') as f:
+            with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
                 lines = f.readlines()
                 for line_num, line in enumerate(lines, start=1):
                     matches = re.findall(pattern, line)
@@ -134,7 +134,7 @@ def extract_unique_requests(folder_a, folder_b, target_a, target_b):
         if directory:
             os.makedirs(directory, exist_ok=True) 
         
-        with open(filename, 'w', newline='', encoding='utf-8') as f:
+        with open(filename, 'w', newline='', encoding='utf-8', errors='ignore') as f:
             writer = csv.writer(f)
             writer.writerow(["Requests", "Content", "Path", "Line"])
             writer.writerows(sorted_report)

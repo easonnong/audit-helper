@@ -58,7 +58,7 @@ def scan_url_requests(folder_path, extension_exclude=None, output_filename=None)
             file_extension = (os.path.splitext(file)[1])[1:]
             if file_extension not in excluded_extensions:
                 file_path = os.path.join(root, file)
-                with open(file_path, 'r') as f:
+                with open(file_path, 'r', errors='ignore') as f:
                     lines = f.readlines()
                     for line_number, line in enumerate(lines, start=1):
                         matches = re.findall(url_patterns, line)
@@ -97,7 +97,7 @@ def save_report_to_csv(filename, report):
     if not os.path.dirname(filename):
         filename = os.path.join(os.getcwd(), filename)
     os.makedirs(os.path.dirname(filename), exist_ok=True)  
-    with open(filename, 'w', newline='', encoding='utf-8') as f:
+    with open(filename, 'w', newline='', encoding='utf-8', errors='ignore') as f:
         writer = csv.writer(f)
         writer.writerow(["Requests", "Content", "Path", "Line"])
         for item in sorted_report:
