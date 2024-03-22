@@ -23,6 +23,8 @@ def scan_sensitive_functions(folder, file, extension_exclude=None, report_file=N
         for filename in files:
             # check if the file extension is in the excluded list
             _, ext = os.path.splitext(filename)
+            if not ext:
+                continue
             if ext.lower() in excluded_extensions:
                 continue
 

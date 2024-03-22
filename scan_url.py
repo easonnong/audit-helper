@@ -55,7 +55,10 @@ def scan_url_requests(folder_path, extension_exclude=None, output_filename=None)
     urls = []
     for root, dirs, files in os.walk(folder_path):
         for file in files:
-            file_extension = (os.path.splitext(file)[1])[1:]
+            file_extension = os.path.splitext(file)[1]
+            if not file_extension:
+                continue
+            file_extension = file_extension[1:]
             if file_extension not in excluded_extensions:
                 file_path = os.path.join(root, file)
                 with open(file_path, 'r', errors='ignore') as f:

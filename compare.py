@@ -87,6 +87,8 @@ def extract_unique_requests(folder_a, folder_b, target_a, target_b):
 
     def has_valid_extension(file_path):
         _, extension = os.path.splitext(file_path)
+        if not extension:
+            return False
         return extension.lower() in valid_extensions
 
     def process_file(file_path, requests, log):
