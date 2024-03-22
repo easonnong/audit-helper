@@ -49,3 +49,8 @@ for req in requests_list:
     print(f'Response for {url}:')
     print(f'Status Code: {response.status_code}')
     print(f'Content: {response.content}\n')
+
+    # test
+    send_http_request_test()
+    # send_http_request()
+    

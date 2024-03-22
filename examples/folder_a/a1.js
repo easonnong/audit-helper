@@ -7,19 +7,19 @@ def send_http_request(url, method='GET', headers=None, data=None):
 # 请求
 requests_list = [
     {
-        'url': 'https://a2_1.com/api/endpoint1',
+        'url': 'https://a1_1.com/api/endpoint1',
         'method': 'GET',
         'headers': {'Content-Type': 'application/json'},
         'data': None
     },
     {
-        'url': 'https://a2_2.com/api/endpoint2',
+        'url': 'https://a1_2.com/api/endpoint2',
         'method': 'POST',
         'headers': {'Content-Type': 'application/json'},
         'data': '{"key": "value"}'
     },
     {
-        'url': 'http://a2_3.com/api/endpoint2',
+        'url': 'http://a1_3.com/api/endpoint2',
         'method': 'POST',
         'headers': {'Content-Type': 'application/json'},
         'data': '{"key": "value"}'
@@ -31,7 +31,7 @@ requests_list = [
         'data': '{"key": "value"}'
     },
     {
-        'url': 'https://github.com/api/endpoint',
+        'url': 'https://google.com/api/endpoint',
         'method': 'POST',
         'headers': {'Content-Type': 'application/json'},
         'data': '{"key": "value"}'
@@ -49,3 +49,5 @@ for req in requests_list:
     print(f'Response for {url}:')
     print(f'Status Code: {response.status_code}')
     print(f'Content: {response.content}\n')
+
+    send_http_request_test()

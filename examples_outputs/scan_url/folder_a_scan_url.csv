@@ -1,0 +1,11 @@
+Requests,Content,Path,Line
+https://a2_1.com/api/endpoint1,"'url': 'https://a2_1.com/api/endpoint1',",examples/folder_a/a2.ts,10
+https://a1_1.com/api/endpoint1,"'url': 'https://a1_1.com/api/endpoint1',",examples/folder_a/a1.js,10
+https://a2_2.com/api/endpoint2,"'url': 'https://a2_2.com/api/endpoint2',",examples/folder_a/a2.ts,16
+https://a1_2.com/api/endpoint2,"'url': 'https://a1_2.com/api/endpoint2',",examples/folder_a/a1.js,16
+http://a2_3.com/api/endpoint2,"'url': 'http://a2_3.com/api/endpoint2',",examples/folder_a/a2.ts,22
+http://a1_3.com/api/endpoint2,"'url': 'http://a1_3.com/api/endpoint2',",examples/folder_a/a1.js,22
+https://baidu.com/api/endpoint,"'url': 'https://baidu.com/api/endpoint',",examples/folder_a/a2.ts,28
+https://baidu.com/api/endpoint,"'url': 'https://baidu.com/api/endpoint',",examples/folder_a/a1.js,28
+https://google.com/api/endpoint,"'url': 'https://google.com/api/endpoint',",examples/folder_a/a1.js,34
+"wss://test_wss.com/api/endpoint',","'url': 'wss://test_wss.com/api/endpoint',",examples/folder_a/a2.ts,40

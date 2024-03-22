@@ -1,0 +1,7 @@
+Requests,Content,Path,Line
+http://b1_3.com/api/endpoint2,"'bug_test': 'http://b1_3.com/api/endpoint2',",examples/folder_b/b1.java,22
+http://b2_3.com/api/endpoint2,"'url': 'http://b2_3.com/api/endpoint2',",examples/folder_b/b2.tsx,22
+http://b3_2.com/api/endpoint1,'http://b3_2.com/api/endpoint1' hello test,examples/folder_b/b3.tsx,2
+https://b1_1.com/api/endpoint1,"'url': 'https://b1_1.com/api/endpoint1',",examples/folder_b/b2.tsx,10
+https://b1_2.com/api/endpoint2,"'url': 'https://b1_2.com/api/endpoint2',",examples/folder_b/b1.java,16
+https://b3_1.com/api/endpoint1,hello test 'https://b3_1.com/api/endpoint1',examples/folder_b/b3.tsx,1
