@@ -96,7 +96,7 @@ def extract_content_before_special_characters(url_string):
 
 
 def save_report_to_csv(filename, report):
-    sorted_report = sorted(report, key=lambda x: x['Line'])
+    sorted_report = sorted(report, key=lambda x: x['Requests'])
     if not os.path.dirname(filename):
         filename = os.path.join(os.getcwd(), filename)
     os.makedirs(os.path.dirname(filename), exist_ok=True)  

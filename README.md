@@ -22,7 +22,7 @@ python main.py -h
 
 ### 1. Compare
 ```
-python main.py compare [-h] [--target_a TARGET_A] [--target_b TARGET_B] folder_a folder_b
+python main.py compare [-h] [-a TARGET_A] [-b TARGET_B] folder_a folder_b
 ```
 example:
 ```
@@ -31,8 +31,8 @@ python main.py compare examples/folder_a examples/folder_b
 
 ### 2. Scan sensitive functions
 ```
-python main.py scan_func [-h] [--extension_exclude EXTENSION_EXCLUDE]
-                         [--target_file TARGET_FILE]
+python main.py scan_func [-h] [-e EXTENSION_EXCLUDE]
+                         [-t TARGET_FILE]
                          folder file
 ```
 example:
@@ -42,11 +42,11 @@ python main.py scan_func examples/folder_a examples/example_sensitive_func.txt
 
 ### 3. Scan urls
 ```
-python main.py scan_url [-h] [--extension_exclude EXTENSION_EXCLUDE]
-                        [--target_file TARGET_FILE]
+python main.py scan_url [-h] [-e EXTENSION_EXCLUDE]
+                        [-t TARGET_FILE]
                         folder
 ```
 example:
 ```
-python main.py scan_url examples/folder_a --extension_exclude md,json
+python main.py scan_url examples/folder_a -e md,json
 ```

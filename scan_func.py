@@ -17,7 +17,7 @@ def scan_sensitive_functions(folder, file, extension_exclude=None, report_file=N
     # to get the excluded extensions
     excluded_extensions = set()
     if extension_exclude:
-        excluded_extensions = set(extension_exclude.split(','))
+        excluded_extensions = {f".{ext.strip()}" for ext in extension_exclude.split(',')}
 
     # report list
     report = []
@@ -76,7 +76,7 @@ def is_function_commented(lines, line_num, func_name, ext):
             if func_name in line:
                 return True
             return False
-    elif ext == 'js':
+    elif ext == 'js' or ext == 'ts':
         # JavaScript
         for line in reversed(lines[:line_num-1]):
             line = line.strip()
@@ -91,7 +91,7 @@ def is_function_commented(lines, line_num, func_name, ext):
 
 
 def save_report_to_csv(filename, report):
-    sorted_report = sorted(report, key=lambda x: x['Line'])
+    sorted_report = sorted(report, key=lambda x: x['Function'])
     if not os.path.dirname(filename):
         filename = os.path.join(os.getcwd(), filename)
     os.makedirs(os.path.dirname(filename), exist_ok=True)
