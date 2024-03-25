@@ -7,9 +7,15 @@ def scan_sensitive_functions(folder, file, extension_exclude=None, report_file=N
     sensitive_functions = []
 
     # to get the sensitive functions
+    if not os.path.isabs(file):
+        file = os.path.join(os.getcwd(), file)
+
+    file_path = os.path.dirname(file)
+    if not os.path.exists(file_path):
+        os.makedirs(file_path, exist_ok=True)
+
     if not os.path.exists(file):
-        os.makedirs(os.path.dirname(file), exist_ok=True)
-        open(file, 'w').close() 
+        open(file, 'w').close()
     else:
         with open(file, 'r', errors='ignore') as f:
             sensitive_functions = [line.strip() for line in f]
