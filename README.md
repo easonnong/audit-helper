@@ -5,7 +5,7 @@
 ## Installation
 ### 1. Clone the repository
 ```
-git clone
+git clone https://github.com/easonnong/audit-helper.git
 ```
     
 ### 2. Change directory
