@@ -1,7 +1,7 @@
 import os
 import re
 import csv
-
+from tqdm import tqdm
 
 def scan_sensitive_functions(folder, file, extension_exclude=None, report_file=None):
     sensitive_functions = []
@@ -28,6 +28,8 @@ def scan_sensitive_functions(folder, file, extension_exclude=None, report_file=N
     # report list
     report = []
 
+    progress_bar = tqdm(total=len(list(os.walk(folder))))
+
     # to walk through the folder
     for root, dirs, files in os.walk(folder):
         for filename in files:
@@ -45,12 +47,14 @@ def scan_sensitive_functions(folder, file, extension_exclude=None, report_file=N
             with open(filepath, 'r', errors='ignore') as f:
                 lines = f.readlines()
                 for line_num, line in enumerate(lines, start=1):
+                    # remove redundant code
+                    if len(line) > 1000:
+                        continue
                     # check if the line contains any sensitive function
                     for func_name in sensitive_functions:
-                        pattern = r'\b{}\b'.format(re.escape(func_name))
-                        if re.search(pattern, line, re.UNICODE | re.IGNORECASE):
+                        if is_partial_match(func_name, line):
                             # check if the function is commented out
-                            if is_function_commented(lines, line_num, func_name, ext[1:]):
+                            if is_function_commented(line, func_name, ext[1:]):
                                 continue
 
                             report_item = {
@@ -60,6 +64,10 @@ def scan_sensitive_functions(folder, file, extension_exclude=None, report_file=N
                                 'Line': line_num
                             }
                             report.append(report_item)
+            
+        progress_bar.update(1)
+
+    progress_bar.close()
 
     # save report
     if report_file:
@@ -69,31 +77,37 @@ def scan_sensitive_functions(folder, file, extension_exclude=None, report_file=N
         save_report_to_csv(f'outputs/scan_func/{folder_name}_scan_func.csv', report)
 
 
-def is_function_commented(lines, line_num, func_name, ext):
-    """
-    check if the function is commented out
-    """
-    if ext == 'py':
-        # Python
-        for line in reversed(lines[:line_num-1]):
-            line = line.strip()
-            if line.startswith('#') or line == '':
-                continue
-            if func_name in line:
-                return True
-            return False
-    elif ext == 'js' or ext == 'ts':
-        # JavaScript
-        for line in reversed(lines[:line_num-1]):
-            line = line.strip()
-            if line.startswith('//') or line.startswith('/*') or line == '':
-                continue
-            if func_name in line:
-                return True
-            return False
-    # ...
+def is_function_commented(line, func_name, ext):
+    comment_syntax = {
+        "py": r"^\s*(#|'''|\"\"\").*{}",
+        "ts": r"^\s*(/\*|\*|//|`).*{}",
+        "js": r"^\s*(/\*|\*|//|`).*{}",
+        "mjs": r"^\s*(/\*|\*|//|`).*{}",
+        "h": r"^\s*(/\*|\*|//|`).*{}",
+        "c": r"^\s*(/\*|\*|//|`).*{}",
+        "cpp": r"^\s*(/\*|\*|//|`).*{}",
+        "java": r"^\s*(/\*|\*|//|`).*{}",
+        # ...
+    }
+
+    comment_pattern = comment_syntax.get(ext)
+
+    if comment_pattern:
+        pattern = comment_pattern.format(func_name)
+
+        if re.search(pattern, line, re.IGNORECASE):
+            return True
 
     return False
+
+
+def is_partial_match(substring, text):
+    # . or [] or ()
+    # pattern = r"(?<![a-zA-Z-])" + re.escape(substring) + r"(?=(?:\.|\[|\())"   
+    # () 
+    pattern = r"(?<![a-zA-Z-])" + re.escape(substring) + r"(?=(?:\())"    
+    matches = re.findall(pattern, text, re.IGNORECASE)
+    return any(match == substring for match in matches)
 
 
 def save_report_to_csv(filename, report):
